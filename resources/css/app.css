@@ -1,0 +1,184 @@
+/* custom classes */
+
+.grid-auto-left{
+    grid-template-columns: auto 1fr;
+}
+.grid-auto-right{
+    grid-template-columns: 1fr auto;
+}
+.btn-active:disabled{
+    @apply bg-gray-300;
+}
+.btn-neutral:disabled{
+    @apply border-gray-400 text-gray-400;
+}
+.btn-primary{
+    @apply uppercase font-semibold tracking-wide rounded-lg py-2 px-3 border bg-blue-500 text-white border border-blue-500 transition-colors duration-300;
+}
+.btn-primary:hover{
+    @apply bg-white text-blue-500;
+}
+.btn-primary:focus{
+    @apply outline-none border-2 border-green-500;
+}
+.flex-center{
+    display: flex;
+    justify-content: center;
+}
+.w-50{
+    width:50%;
+}
+.w-75{
+    width: 75%;
+}
+.w-25{
+    width: 25%;
+}
+/*----- custom classes -----*/
+
+html,
+body {
+  font-family: "Rubik", sans-serif;
+}
+[x-cloak] {
+    display: none;
+}
+
+[type="checkbox"] {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.form-checkbox {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+    display: inline-block;
+    vertical-align: middle;
+    background-origin: border-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    flex-shrink: 0;
+    color: currentColor;
+    background-color: #fff;
+    border-color: #e2e8f0;
+    border-width: 1px;
+    border-radius: 0.25rem;
+    height: 1.2em;
+    width: 1.2em;
+}
+
+.form-checkbox:checked {
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
+    border-color: transparent;
+    background-color: currentColor;
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+/* Ripple effect */
+.ripple {
+    position: absolute;
+    background: rgba(0,0,0,.25);
+    border-radius: 100%;
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    transform: scale(0);
+    pointer-events: none;
+}
+.animate-ripple{
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+.ripple.show {
+    -webkit-animation: ripple .5s ease-out;
+    animation: ripple .5s ease-out;
+}
+@-webkit-keyframes
+ripple {
+    to {
+        -webkit-transform: scale(1.5);
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+@keyframes
+ripple {
+    to {
+        -webkit-transform: scale(1.5);
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+@keyframes error-ping {
+    to{
+        background-color: #FA3737;
+    }
+}
+/* -------Ripple effect-------- */
+
+/*  Popper */
+
+.popper-arrow,
+.popper-arrow::before {
+    @apply absolute;
+    width: 8px;
+    height: 8px;
+    z-index: -1;
+    bottom: -2px;
+}
+
+.popper-arrow::before {
+    content: '';
+    transform: rotate(45deg);
+    @apply bg-red-500;
+}
+.popper-tooltip{
+    @apply border p-3 bg-red-500 text-white leading-tight rounded-md shadow-md;
+    opacity: .7;
+}
+.popper-tooltip svg{
+    @apply w-4 h-4 cursor-pointer bg-red-500 absolute rounded-full;
+    top:-1.1rem;
+    right:-1.1rem;
+}
+.popper-tooltip[data-popper-placement^='top'].popper-arrow {
+    bottom: -4px;
+}
+
+.popper-tooltip[data-popper-placement^='bottom'].popper-arrow {
+    top: -4px;
+}
+
+.popper-tooltip[data-popper-placement^='left'].popper-arrow {
+    right: -4px;
+}
+
+.popper-tooltip[data-popper-placement^='right'].popper-arrow {
+    left: -4px;
+}
+/*---- Popper ------*/
+
+/* material design */
+
+
+/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+/*------ material design ----*/
