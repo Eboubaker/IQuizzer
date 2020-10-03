@@ -8,7 +8,9 @@ module.exports = {
     extend: {
     },
   },
-  variants: {},
+  variants: {
+    borderWidth: ['responsive', 'hover']
+  },
   plugins: [
 
   ],

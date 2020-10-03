@@ -43,4 +43,7 @@ class User extends Authenticatable
     public function completedQuizzes(){
         return $this->hasMany(UserQuiz::class);
     }
+    public function getPathAttribute(){
+        return route('user.profile', ['user' => $this->attributes['id']]);
+    }
 }

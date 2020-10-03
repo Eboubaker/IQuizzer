@@ -2,6 +2,7 @@
   <code_scheme name="Project" version="173">
     <PHPCodeStyleSettings>
       <option name="PHPDOC_WRAP_LONG_LINES" value="true" />
+      <option name="NAMESPACE_BRACE_STYLE" value="2" />
     </PHPCodeStyleSettings>
     <codeStyleSettings language="HTML">
       <indentOptions>
@@ -9,6 +10,10 @@
         <option name="SMART_TABS" value="true" />
         <option name="KEEP_INDENTS_ON_EMPTY_LINES" value="true" />
       </indentOptions>
+    </codeStyleSettings>
+    <codeStyleSettings language="PHP">
+      <option name="BRACE_STYLE" value="2" />
+      <option name="LAMBDA_BRACE_STYLE" value="2" />
     </codeStyleSettings>
   </code_scheme>
 </component>

@@ -1,5 +1,4 @@
 
-
 @tailwind base;
 
 @tailwind components;
@@ -8,3 +7,6 @@
 
 
 @import "app.css";
+@import "buttons.css";
+@import "popper.css";
+@import "ripple.css";

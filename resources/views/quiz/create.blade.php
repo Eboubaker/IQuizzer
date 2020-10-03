@@ -3,7 +3,6 @@
 
 <?php $input = session()->getOldInput(); ?>
 @section('content')
-
     @if($errors->count())
         @foreach ($errors->all() as $error)
             <div>{{ $error }}</div>
@@ -17,26 +16,6 @@
             <input value="{{ old('title') }}" name="title" placeholder="Quiz Title" class="quiz-title py-3 px-2 w-full appearance-none focus:border-blue-300 block mx-0  bg-white text-gray-900 font-medium border border-gray-400 rounded-lg  leading-tight focus:outline-none @error('title')  border-red-600 error @enderror">
             <small class="text-sm ml-2 text-red-600">@error('title') {{ $message }} @enderror</small>
         </div>
-{{--        @if(!empty($input['questions']))--}}
-{{--            @foreach($input['questions'] as $i => $q)--}}
-{{--                <div style="border-radius: 2rem" class="hide question-block bg-gray-100 w-75 d-flex my-12 p-1">--}}
-{{--                    <label class="text-2xl block text-center mb-2">Question {{ $i+1 }}</label>--}}
-{{--                    <div class="flex">--}}
-{{--                        <input placeholder="Point" name="questions[{{ $i }}].point" value="{{ $q['point'] ?? ""}}" class="appearance-none block bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none">--}}
-{{--                        <textarea value="{{ $q['question'] }}" name="questions[{{ $i }}][question]" onkeyup="editQuestion(this)" placeholder="question" class="appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none"></textarea>--}}
-{{--                    </div>--}}
-{{--                    <div class="choices-block flex flex-wrap  justify-start">--}}
-{{--                        @if(!empty($q['choices']))--}}
-{{--                            @foreach($q['choices'] as $j => $c)--}}
-{{--                                <div class="choice-block box-border w-1/4 px-2 py-3">--}}
-{{--                                    <input value="{{ $c }}" name="questions[{{ $i }}][choices][]" onkeyup="editChoice(this)" placeholder="Choice" class="appearance-none block w-full bg-white text-grey-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none">--}}
-{{--                                </div>--}}
-{{--                            @endforeach--}}
-{{--                        @endif--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            @endforeach--}}
-{{--        @endif--}}
         <div class="flex justify-center">
             <button id="removeq" class="btn-neutral hidden focus:outline-none appearance-none mx-2 w-56
             border rounded-lg py-3 px-2 leading-tight font-semibold uppercase

@@ -1,0 +1,39 @@
+
+.popper-arrow,
+.popper-arrow::before {
+    @apply absolute;
+    width: 8px;
+    height: 8px;
+    z-index: -1;
+    bottom: -2px;
+}
+
+.popper-arrow::before {
+    content: '';
+    transform: rotate(45deg);
+    @apply bg-red-500;
+}
+.popper-tooltip{
+    @apply border p-3 bg-red-500 text-white leading-tight rounded-md shadow-md;
+    opacity: .7;
+}
+.popper-tooltip svg{
+    @apply w-4 h-4 cursor-pointer bg-red-500 absolute rounded-full;
+    top:-1.1rem;
+    right:-1.1rem;
+}
+.popper-tooltip[data-popper-placement^='top'].popper-arrow {
+    bottom: -4px;
+}
+
+.popper-tooltip[data-popper-placement^='bottom'].popper-arrow {
+    top: -4px;
+}
+
+.popper-tooltip[data-popper-placement^='left'].popper-arrow {
+    right: -4px;
+}
+
+.popper-tooltip[data-popper-placement^='right'].popper-arrow {
+    left: -4px;
+}

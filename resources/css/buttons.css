@@ -1,0 +1,17 @@
+.btn{
+    @apply font-semibold tracking-wide transition-colors duration-300 rounded-lg;
+}
+
+
+
+.btn-primary{
+    @apply uppercase py-2 px-3 bg-blue-500 text-white border border-blue-500;
+}
+.btn-primary:hover{
+    @apply bg-white text-blue-500;
+}
+.btn-primary:focus{
+    @apply outline-none border-2 border-green-500;
+}
+
+

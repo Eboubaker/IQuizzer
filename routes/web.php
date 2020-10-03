@@ -20,8 +20,11 @@ use Illuminate\Support\Facades\Route;
 //Artisan::call('migrate:refresh', ["--seed"=>true]);
 //dd(Artisan::output());
 Auth::routes();
-Route::get('/userquiz/create/{quiz}', [UserQuizController::class, 'create']);
-Route::post('/userquiz/{quiz}')->name('userquiz.store');
+Route::get("/user/{user}", function(){ abort(404);})->name("user.profile");
+Route::get('/userQuiz/{userQuiz}', [UserQuizController::class, 'show'])->name('userQuiz.show');
+Route::get('/userQuiz/new/{quiz}', [UserQuizController::class, 'create'])->name('userQuiz.create');
+Route::post('/userQuiz/store/{quiz}', [UserQuizController::class, 'store'])->name('userQuiz.store');
+
 Route::resource('quiz' , QuizController::class);
 Route::get('/explore', function(){return "TODO";})->name('explore');
 Route::get('/{home?}', [HomeController::class, 'index'])->name('home');

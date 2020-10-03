@@ -12,12 +12,15 @@ class UserQuiz extends Model
     protected $casts = [
         'answers' => 'object',
     ];
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public function quiz(){
         return $this->belongsTo(Quiz::class, 'quiz_id', 'id');
     }
     public function user(){
         return $this->belongsTo(User::class);
+    }
+    public function getPathAttribute(){
+        return route('userQuiz.show', [$this->attributes['id']]);
     }
 }
