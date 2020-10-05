@@ -86,7 +86,7 @@
                     <div class="felx justify-center">
                         <button data-question-number onclick="modifyQuestion(this)" type="button" class="sum-qmodify shadow-md text-xs text-gray-500 border-b border-gray-500 hover:text-blue-400 border-blue-400 transition-colors duration-300 focus:outline-none focus:border-green-500">Modify</button>
                     </div>
-                    <hr class="w-75 mx-auto my-4 border-gray-300" />
+                    <hr class="w-75 mx-auto my- 4 border-gray-300" />
                 </div>`);
     function modifyQuestion(button){
         button = $(button);
