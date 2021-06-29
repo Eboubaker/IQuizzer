@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use App\Models\Quiz;
 use App\Models\User;
 use App\Models\UserQuiz;
@@ -17,6 +18,7 @@ class QuizController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('verified')->except('show');
     }
     public function index(){
         return view('quiz.index', [
@@ -28,7 +30,7 @@ class QuizController extends Controller
                     {
                         $avg += $userQuiz->point;
                     }
-                    $quiz->avg = round($avg / count($quiz->usersQuiz), 1);
+                    $quiz->avg = Helper::topoint($avg / count($quiz->usersQuiz), $quiz->total_points);
                 }
             }),
             "userQuizzes" => UserQuiz::where('user_id', Auth::id())->with("quiz")->get(),
@@ -43,16 +45,18 @@ class QuizController extends Controller
         {
             abort(404);
         }
+
         $quiz['title'] = strtoupper($quiz['title'][0]).substr($quiz['title'], 1);
         if(Auth::id() === $quiz->author->id)
         {
+            $this->middleware('verified');
             $users = [];
             foreach($quiz->usersQuiz as $userQuiz)
             {
                 $u = new stdClass;
                 $u->path = $userQuiz->path;
                 $u->name = $userQuiz->user->name;
-                $u->point = $userQuiz->point;
+                $u->point = Helper::topoint($userQuiz->point, $quiz->totalPoints);
                 $u->email = $userQuiz->user->email;
                 $u->createdAt = strval($userQuiz->created_at);
                 $users[] = $u;
@@ -81,12 +85,12 @@ class QuizController extends Controller
     public function validateRequest(){
         return Validator::make(request()->all(), [
             'total_points' => 'required',
-            'title' => 'required|between:5, 50',
+            'title' => 'required|between:5, 200',
             'questions' => 'required|between:3, 30',
-            'questions.*.question' => 'required|between:3, 255',
+            'questions.*.question' => 'required|between:3, 400',
             'questions.*.point' => 'required|numeric|min:0',
             'questions.*.choices' => 'required|between:2, 6',
-            'questions.*.choices.*' => 'required|between:4, 255',
+            'questions.*.choices.*' => 'required',
         ],[
             'title.required' => 'You must specify the Title of the quiz',
             'title.between' => 'The title must be at least 4 characters long',

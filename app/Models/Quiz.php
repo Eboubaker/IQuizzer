@@ -31,6 +31,11 @@ class Quiz extends Model
     public function getCreatedAtAttribute(){
         return Carbon::parse($this->attributes['created_at'])->diffForHumans();
     }
+    public function getTotalPointsAttribute()
+    {
+        return round($this->attributes['total_points'], 1);
+    }
+
     public function shuffleChoices(){
         $questions = (object)$this->questions;
         $shuffled = [];
@@ -49,5 +54,13 @@ class Quiz extends Model
         }
         $this->questions = $shuffled;
         return $shuffled;
+    }
+    public function getCreatedAttribute()
+    {
+        return Carbon::parse($this->attributes['created_at']);
+    }
+    public function getMustVerifyAttribute()
+    {
+        return $this->attributes['must_verify'];
     }
 }

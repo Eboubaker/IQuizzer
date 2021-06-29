@@ -40,6 +40,7 @@ class QuizFactory extends Factory
             'time'  =>  (new Carbon())->addDays(rand(0, 10))->addHours(rand(1, 24)),
             'questions' => $questions,
             'duration' => rand(15, 120),
+            'description' => $this->faker->sentence(12),
             'total_points' => 20,
         ];
     }

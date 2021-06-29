@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helper;
 use App\Models\Quiz;
 use App\Models\UserQuiz;
 use Illuminate\Support\Arr;
@@ -12,11 +13,19 @@ class UserQuizController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth']);
     }
 
     function create(Quiz $quiz)
     {
+        /*if($quiz->mustVerify)
+        {
+            $this->middleware('verified');
+        }*/
+        if($q = UserQuiz::where('user_id', Auth::id())->where('quiz_id', $quiz->id)->first())
+        {
+            return redirect()->route('userQuiz.show', ['userQuiz' => $q]);
+        }
         $quiz->shuffleChoices();
         return view('userQuiz.create', ["quiz" => $quiz]);
     }
@@ -60,6 +69,12 @@ class UserQuizController extends Controller
 
     function show(UserQuiz $userQuiz)
     {
+//        Auth::user()->division_unit = 100;
+        if(Auth::id() != $userQuiz->quiz->author->id && Auth::id() != $userQuiz->user->id)
+        {
+            return abort(403, "You don't own this Quiz, Thus can't view results of participants");
+        }
+        $userQuiz->point = Helper::topoint($userQuiz->point, $userQuiz->quiz->totalPoints );
         return view("userQuiz.show", [
             "questions" => $userQuiz->quiz->questions,
             "answers" => $userQuiz->answers,

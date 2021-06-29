@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, \Illuminate\Auth\MustVerifyEmail, \Illuminate\Auth\Passwords\CanResetPassword;
 
     /**
      * The attributes that are mass assignable.
@@ -36,14 +37,25 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'division_unit' => 'float'
     ];
     public function quizzes(){
         return $this->hasMany(Quiz::class);
+    }
+
+    public function settings()
+    {
+        return $this->hasOne(UserSettings::class, 'id');
     }
     public function completedQuizzes(){
         return $this->hasMany(UserQuiz::class);
     }
     public function getPathAttribute(){
         return route('user.profile', ['user' => $this->attributes['id']]);
+    }
+
+    public function getDivisionUnitAttribute()
+    {
+        return $this->attributes['division_unit'];
     }
 }

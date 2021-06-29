@@ -17,8 +17,10 @@ class CreateQuizzesTable extends Migration
         Schema::create('quizzes', function (Blueprint $table) {
             $table->string('id', Quiz::$keyLength)->primary();
             $table->string('title');
+            $table->string('description')->nullable();
             $table->timestamp('time');
             $table->float('total_points');
+            $table->boolean('must_verify')->default(true);
             $table->integer('duration')->default(0);
             $table->foreignId('author_id');
             $table->addColumn('longtext', 'questions');
