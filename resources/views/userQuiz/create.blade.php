@@ -17,7 +17,7 @@
             <div>{{ $error }}</div>
         @endforeach
     @endif
-    <form name="create" class="justify-center py-5 px-12 mt-5" action="{{ route('userQuiz.store', $quiz->id) }}" method="post">
+    <form name="create" class="justify-center py-5 px-1 sm:px-12 mt-5" action="{{ route('userQuiz.store', $quiz->id) }}" method="post">
         @csrf
         <div class="info w-full">
             <div class="w-full text-center text-xl">{{ $quiz->title }}</div>
@@ -37,6 +37,9 @@
             </div>
         </div>
         <div class="questions hidden mt-6">
+            <div class="w-full rounded-full mx-2 border border-indigo-500 md:w-1/2 mx-auto">
+                <div id="progress" class="rounded-full bg-indigo-500 transition-all duration-200" style="width:0%;height:15px"></div>
+            </div>
             @foreach($quiz->questions as $index => $question)
                 <div class="question mt-5 grid justify-items-center {{ $index !== 0 ? 'hidden' : ''}}">
                     <div class="question-number text-center text-3xl text-gray-800">
@@ -45,10 +48,10 @@
                     <div class="question-text text-center mt-2 font-sans font-semibold text-lg max-w-lg">
                         {{ $question->question }}
                     </div>
-                    <div class="question-choices flex gap-10 flex-wrap justify-center w-75 mt-4">
+                    <div class="question-choices sm:flex gap-10 flex-wrap justify-center sm:w-75 mt-4">
                         <input class="answer" name="answers[]" hidden>
                         @foreach($question->choices as $choice)
-                            <div class="question-choice border border-2 border-blue-400 p-5 text-center rounded hover:bg-indigo-500 hover:border-transparent  hover:text-white cursor-pointer" style="max-width: 25%;">
+                            <div class="my-3 question-choice border border-2 border-blue-400 p-5 text-center rounded hover:bg-indigo-500 hover:border-transparent  hover:text-white cursor-pointer">
                                 {{ $choice }}
                             </div>
                         @endforeach
@@ -70,6 +73,8 @@
 @push('scripts')
     <script>
         let form = $(document.forms['create']);
+        let questions = $('.question');
+        let prog = $('#progress');
         $('#quiz-start').click(function(){
            $('.info').hide();
            animateShow($('.questions'));
@@ -81,13 +86,19 @@
             qelem.css({opacity:0, display:'grid'}).animate({opacity:1}, 200);
         }
         $('.question-choice').click(function(){
-            let choice = $(this);
-            let question = choice.parents('.question');
-            choice.parents('.question-choices').find('.answer').attr('value', choice.text().trim());
-            showQuestion(question.hide().next());
-            if(question.next().is('.end')){
-                form.submit();
-            }
+            $this = $(this);
+            setTimeout(function(){
+                let choice = $this;
+                let question = choice.parents('.question');
+                choice.parents('.question-choices').find('.answer').attr('value', choice.text().trim());
+                showQuestion(question.hide().next());
+                if(question.next().is('.end')){
+                    form.submit();
+                }
+                let qIndex = question.index();
+                let perc = qIndex / questions.length * 100;
+                prog.css('width', perc+'%');
+            }, 100)
         });
     </script>
 @endpush

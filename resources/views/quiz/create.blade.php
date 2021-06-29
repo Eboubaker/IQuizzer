@@ -8,7 +8,8 @@
             <div>{{ $error }}</div>
         @endforeach
     @endif
-    <form name="create" class="justify-center py-5 px-12" action="{{ route('quiz.store') }}" method="post">
+    <form name="create" class="justify-center py-5 px-1 lg:px-12" action="{{ route('quiz.store') }}" method="post">
+        @csrf
         <div class="question-block mx-auto w-2/3 block" style="margin-bottom: 5.375rem">
             <div class="items-center text-center pt-10">
                 <h2 class="text-4xl tracking-tight">New Quiz</h2>
@@ -17,41 +18,44 @@
             <small class="text-sm ml-2 text-red-600">@error('title') {{ $message }} @enderror</small>
         </div>
         <div class="flex justify-center">
-            <button id="removeq" class="btn-neutral hidden focus:outline-none appearance-none mx-2 w-56
-            border rounded-lg py-3 px-2 leading-tight font-semibold uppercase
+            <button id="removeq" class="btn-neutral hidden focus:outline-none appearance-none mx-2 md:w-56
+            border rounded-lg md:py-3 px-4 leading-tight font-semibold uppercase
             animate-ripple bg-none border-red-400 text-red-600 cursor-pointer"
                     onclick="remove()" type="button"
             >
-                <span style="transform: translateY(.4rem);" class="material-icons text-center">delete</span>
-                <span class="btntxt">Remove</span></button>
+                <svg class="w-10 h-10 md:w-6 md:h-6 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                <span class="btntxt hidden md:inline-block">Remove</span>
+            </button>
 
-            <button id="previousq" class="btn-neutral hidden focus:outline-none appearance-none mx-2 w-56
-            border rounded-lg py-3 px-2 leading-tight font-semibold uppercase
+            <button id="previousq" class="btn-neutral hidden focus:outline-none appearance-none mx-2 md:w-58
+            border rounded-lg md:py-3 px-4 leading-tight font-semibold uppercase
             focus:outline-none
             animate-ripple border-yellow-400 text-yellow-500 cursor-pointer"
             onclick="previous()"
-             type="button"><span style="transform: translateY(.4rem);" class="btn-neutral material-icons text-center"
-                >arrow_back</span> <span class="btntxt">Previous</span></button>
-            <button id="nextq" class="btn-neutral focus:outline-none appearance-none mx-2 w-56
-            border rounded-lg py-3 px-2 leading-tight font-semibold uppercase
+             type="button">
+                <svg class="w-10 h-10 md:w-6 md:h-6 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                <span class="btntxt hidden md:inline-block">Previous</span>
+            </button>
+            <button id="nextq" class="btn-neutral focus:outline-none appearance-none mx-2 md:w-56
+            border rounded-lg md:py-3 px-4 leading-tight font-semibold uppercase
             animate-ripple border-green-700 text-green-700 cursor-pointer"
                    onclick="nextQuestion()" type="button">
-                <span class="btntxt">Questions</span>
-                <span style="transform: translateY(.4rem);" class="material-icons text-center">arrow_forward</span></button>
-
-            <button id="submitf" class="bg-blue-400 text-white hover:bg-transparent hover:border-blue-400 hover:text-blue-400 transition-colors duration-300 hidden focus:outline-none appearance-none mx-2 w-56
-            border rounded-lg py-3 px-2 leading-tight font-semibold uppercase
+                <span class="btntxt hidden md:inline-block">Questions</span>
+                <svg class="w-10 h-10 md:w-6 md:h-6 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </button>
+            <button id="submitf" class="bg-blue-400 text-white hover:bg-transparent hover:border-blue-400 hover:text-blue-400 transition-colors duration-300 hidden focus:outline-none appearance-none mx-2 md:w-56
+                <button border rounded-lg md:py-3 px-4 leading-tight font-semibold uppercase
              cursor-pointer"
                     type="button">
-                <span class="btntxt">Finish</span>
-                <span style="transform: translateY(.4rem);" class="material-icons text-center">done</span></button>
-            @csrf
+                <span class="btntxt hidden md:inline-block">Finish</span>
+                <svg class="w-10 h-10 md:w-6 md:h-6 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </button>
             <input hidden name="total_points">
         </div>
         <div class="summary hidden">
-            <div class="flex justify-between my-2">
+            <div class="flex justify-center my-2">
                 <h2 class="text-2xl ">Quiz Summary</h2>
-                <button type="button" onclick="document.forms['create'].submit()" class="uppercase font-semibold tracking-wide rounded-lg py-2 px-3 border bg-blue-500 text-white hover:bg-white hover:text-blue-500 border border-blue-500 transition-colors duration-300 focus:outline-none focus:border-green-500">Create</button>
+{{--                <button type="button" onclick="document.forms['create'].submit()" class="uppercase font-semibold tracking-wide rounded-lg py-2 px-3 border bg-blue-500 text-white hover:bg-white hover:text-blue-500 border border-blue-500 transition-colors duration-300 focus:outline-none focus:border-green-500">Create</button>--}}
             </div>
             <hr/>
             <div class="grid grid-auto-left gap-5 mt-5">
@@ -63,7 +67,8 @@
             <hr/>
             <div class="sum-qs-container m-0 p-0"></div>
             <div class="flex justify-center">
-                <button type="button" onclick="document.forms['create'].submit()" class="mx-auto w-48 btn-primary">Create</button>
+                <input name="must_verify" value="1" hidden>
+                <button type="button" onclick="document.forms['create'].submit()" class="mt-5 mx-2 w-full md:w-48 btn btn-primary">Create</button>
             </div>
         </div>
     </form>
@@ -78,12 +83,12 @@
     form.find('.question-block>textarea').each(function () {
         this.setAttribute('style', 'height:' + (Math.min(Math.max(0,this.scrollHeight)), 200) + 'px;overflow-y:hidden;');
     });
-    let summaryChoiceTemplate = $(`<div class="border p-5 text-center rounded" style="max-width: 25%;"></div>`);
+    let summaryChoiceTemplate = $(`<div class="border my-1 p-5 text-center rounded"></div>`);
     let summaryQuestionTemplate = $(`<div class="sum-q mt-5 grid justify-items-center">
                     <div class="sum-qnumber text-center text-3xl text-gray-800"></div>
-                    <div class="sum-qtext text-center mt-2 font-sans font-semibold text-lg max-w-lg"></div>
-                    <div class="sum-choices flex gap-10 flex-wrap justify-center w-75 mt-4"></div>
-                    <div class="felx justify-center">
+                    <div class="sum-qtext text-center mt-2 font-sans font-semibold text-lg md:max-w-lg"></div>
+                    <div class="sum-choices md:flex gap-10 flex-wrap justify-center md:w-auto w-full md:w-75 mt-4"></div>
+                    <div>
                         <button data-question-number onclick="modifyQuestion(this)" type="button" class="sum-qmodify shadow-md text-xs text-gray-500 border-b border-gray-500 hover:text-blue-400 border-blue-400 transition-colors duration-300 focus:outline-none focus:border-green-500">Modify</button>
                     </div>
                     <hr class="w-75 mx-auto my- 4 border-gray-300" />
@@ -107,7 +112,7 @@
                     <div style="max-width: 40rem" class='popper-tooltip'>
                         <div class="relative">
                             <svg onclick="$(this).parents('.popper-tooltip').remove()" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                            <div class="text-center error-text p-1" style="max-width: 15rem;">{$InputError}</div>
+                            <div class="text-center error-text p-1 max-w-15">{$InputError}</div>
                         </div>
                         <div class="popper-arrow" data-popper-arrow></div>
                     </div>`).hide();
@@ -137,9 +142,9 @@
         let q = $(`
             <div class="question-block bg-gray-100 d-flex my-12 p-1">
                 <label class="question-number text-2xl block text-center mb-2">Question ${qid + 1}</label>
-                <div class="flex">
-                    <div>
-                        <input name="questions[${qid}][point]" placeholder="Point" type="number" step=".25" min=".25" class="question-point h-12 w-24 mr-2 block bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none">
+                <div class="flex flex-wrap md:flex-no-wrap">
+                    <div class="w-full md:w-auto">
+                        <input name="questions[${qid}][point]" placeholder="Point" type="number" step=".25" min=".25" class="question-point h-12 w-full md:w-24 mr-2 block bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none">
                         <small class="question-point-error error-text text-sm ml-2 text-red-600"></small>
                     </div>
                     <div class="w-full">
@@ -147,16 +152,17 @@
                         <small class="question-name-error error-text text-sm ml-2 text-red-600"></small>
                     </div>
                 </div>
-                <div class="grid grid-cols-2 justify-items-start gap-2" style="grid-template-columns: auto 1fr">
-                    <div class="pt-2">
-                        <button onclick="appendChoice(this)" type="button" class="btn-neutral inline-block add-choice animate-ripple focus:outline-none my-auto py-1 px-2 mx-1 bg-none border border-green-400 text-green-400 rounded">
-                            <span style="transform: translateY(.2rem)" class="material-icons">add</span>
-                        </button>
+                <div class="flex flex-wrap lg:grid grid-cols-2 justify-items-start gap-2" style="grid-template-columns: auto 1fr">
+                    <div class="pt-2 flex justify-center lg:block w-full lg:w-auto">
                         <button disabled onclick="deleteChoice(this)" type="button" class="btn-neutral inline-block delete-choice animate-ripple focus:outline-none my-auto py-1 px-2 mx-1 bg-none border border-red-500 text-red-500 rounded">
-                            <span style="transform: translateY(.2rem)" class="material-icons">remove</span>
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
                         </button>
+                        <button onclick="appendChoice(this)" type="button" class="btn-neutral inline-block add-choice animate-ripple focus:outline-none my-auto py-1 px-2 mx-1 bg-none border border-green-400 text-green-400 rounded">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                        </button>
+
                     </div>
-                    <div class="choices-block grid grid-cols-4 w-full">
+                    <div class="choices-block block lg:grid grid-cols-4 w-full">
                         ${makeChoice(qid, 'Correct answer', 'green')[0].outerHTML}
                         ${makeChoice(qid, 'Wrong answer', 'red')[0].outerHTML}
                         ${makeChoice(qid, 'Wrong answer', 'red')[0].outerHTML}
@@ -164,12 +170,7 @@
                 </div>
             </div>
         `);
-        q.find('textarea').on('input', function () {
-            if(this.height < 200) {
-                this.style.height = 'auto';
-                this.style.height = (this.scrollHeight) + 'px';
-            }
-        });
+        q.find('textarea').autogrow().css('height', '');
         q.insertAfter(last);
         return q;
     }

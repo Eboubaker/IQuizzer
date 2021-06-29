@@ -6,25 +6,50 @@
         @else
             <title>{{ config('app.name') }}</title>
         @endif
-
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{ mix('css/main.css') }}">
+        <meta name="title" content="Quizzer — Create Quizzes and Exams For your Students">
+        <meta name="description" content="Quizzer offers a modern management system for your Students, Track their results and history">
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="http://iquizzer.online/">
+        <meta property="og:title" content="Quizzer — Create Quizzes and Exams For your Students">
+        <meta property="og:description" content="Quizzer offers a modern management system for your Students, Track their results and history">
+        <meta property="og:image" content="{{ asset('img/meta-image.png') }}">
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:url" content="http://iquizzer.online/">
+        <meta property="twitter:title" content="Quizzer — Create Quizzes and Exams For your Students">
+        <meta property="twitter:description" content="Quizzer offers a modern management system for your Students, Track their results and history">
+        <meta property="twitter:image" content="{{ asset('img/meta-image.png') }}">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico?v=2') }}"/>
+            <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <script src="{{ mix('js/app.js') }}"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha256-x8PYmLKD83R9T/sYmJn1j3is/chhJdySyhet/JuHnfY=" crossorigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700;900&display=swap" rel="stylesheet">
         @stack('header-sources')
     </head>
-    <body class="antialiased bg-gray-100">
+    <body class="antialiased bg-gray-100" x-data="noticesHandler()" @notice.window="add($event.detail)">
+
         @include('items.loading')
         @include('_nav')
-        @yield('content')
+
+        @include('_toast')
+        <div class="page min-h-screen">
+            @yield('content')
+        </div>
+        @include('_footer')
         @stack('scripts')
     </body>
 <script>
-    $(document).ready(function(){
-        $('#loading-animation').hide();
-    });
+    if(!window.readyFunc)
+    {
+        window.readyFunc = function(){
+            $('#loading-animation').hide();
+        };
+    }
+    $(document).ready(window.readyFunc);
     $(document).on("keydown","form", function(event)
     {
         let node = event.target.nodeName.toLowerCase();

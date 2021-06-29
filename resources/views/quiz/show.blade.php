@@ -1,33 +1,42 @@
 @extends('layout')
 @section('title') {{ $quiz->title }} @endsection
+
+@push('header-sources')
+    <style>
+        @media print {
+            nav, .no-print, .btns, footer{
+                display: none;
+            }
+        }
+        
+    </style>
+@endpush
 @section('content')
     <?php $empty = count($quiz->usersQuiz) === 0 ?>
-    <div class="w-full sans-serif bg-gray-200 pt-8 h-screen">
+    <div class="w-full sans-serif bg-gray-200 pt-8">
         <div class="w-full mb-5">
             <div class="w-full text-center text-4xl">
                 {{ $quiz->title }}
             </div>
-            <div class="w-full text-center font-semibold mt-3 text-blue-800">
+            <div class="no-print w-full text-center font-semibold mt-3 text-blue-800">
                 Your Quiz All Set, Send this link to your Students {{ $empty ? 'to get Started' : ''}}
             </div>
-            <div class="flex w-full justify-center ">
-                <button onclick="copy()" class="focus:outline-none text-gray-600 font-semibold animate-ripple cursor-pointer bg-white mt-1 text-xs sm:text-sm lg:text-md py-2 px-4 rounded-lg shadow-md">
+            <div class="no-print flex w-full justify-center ">
+                <div onclick="copy(this)" class="focus:outline-none text-gray-600 font-semibold animate-ripple cursor-pointer bg-white mt-1 text-xs sm:text-sm lg:text-md py-2 px-4 rounded-lg shadow-md">
                     <span>{{ $quiz->path }}</span>
-                </button>
+                </div>
             </div>
-            <div id="copied" class="text-sm text-center w-full text-gray-500">click to copy</div>
+            <div id="copied" class="no-print text-sm text-center w-full text-gray-500">click to copy</div>
         </div>
-        <div class="text-center my-3 mx-auto border-t-2 w-11/12 border-{{$empty?'red':'green'}}-600 font-sans text-{{$empty?'red':'green'}}-600 font-semibold">{{$empty?'No one has completed your quiz yet!':'Engaged Users'}}</div>
-        <div class="container mx-auto py-6 px-4" x-data="datatables()" x-cloak>
-            <div class="mb-4 flex justify-between items-center">
+        <div class="no-print text-center my-3 mx-auto border-t-2 w-11/12 border-{{$empty?'red':'green'}}-600 font-sans text-{{$empty?'red':'green'}}-600 font-semibold">{{$empty?'No one has completed your quiz yet!':'Engaged Users'}}</div>
+        <div class="container mx-auto py-6 px-4" x-data="datatables()" x-init="init()" x-cloak>
+            <div class="no-print mb-4 flex justify-between items-center">
                 <div class="flex-1 pr-4">
-                    <div class="relative md:w-1/3">
+                    <div class="relative md:w-1/3" >
                         <input type="search"
                                class="w-full pl-10 pr-4 py-2 rounded-lg shadow focus:outline-none focus:shadow-outline text-gray-600 font-medium"
                                placeholder="Search..."
-                               x-model="searchval"
-                               @change="search()"
-                               x-on:keyup="search()">
+                               x-model="searchval">
                         <div class="absolute top-0 left-0 inline-flex items-center p-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-400" viewBox="0 0 24 24"
                                  stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
@@ -37,12 +46,11 @@
                                 <line x1="21" y1="21" x2="15" y2="15" />
                             </svg>
                         </div>
+
                     </div>
                 </div>
-
                 <div>
                     <div class="shadow rounded-lg flex">
-
                         <div class="relative">
                             <button @click.prevent="open = !open"
                                     class="rounded-lg inline-flex items-center bg-white hover:text-blue-500 focus:outline-none focus:shadow-outline text-gray-500 font-semibold py-2 px-2 md:px-4">
@@ -80,14 +88,12 @@
                 </div>
             </div>
 
-            <div class="overflow-x-auto bg-white rounded-lg shadow overflow-y-auto relative"
+            <div class="tbl overflow-x-auto bg-white rounded-lg shadow overflow-y-auto relative"
                  style="height: 405px;">
                 <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
-
-
                     <thead>
                     <tr class="text-left">
-                        <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100">
+                        <th class="no-print py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100">
                             <label class="text-teal-500 inline-flex justify-between items-center hover:bg-gray-200 px-2 py-2 rounded-lg cursor-pointer">
                                 <input type="checkbox" class="form-checkbox focus:outline-none focus:shadow-outline" @click="selectAllCheckbox($event);">
                             </label>
@@ -100,23 +106,23 @@
                     </thead>
                     <tbody>
 
-                    <template x-for="user in users" :key="user.userId">
+                    <template x-for="user in users" :key="user.email">
 
-                        <tr class="hover:bg-blue-100 cursor-pointer" @click="navigate(user.path)">
-                            <td class="border-dashed border-t border-gray-200 px-3">
+                        <tr class="hover:bg-blue-100">
+                            <td class="no-print border-dashed border-t border-gray-200 px-3">
                                 <label
                                         class="text-teal-500 inline-flex justify-between items-center hover:bg-gray-200 px-2 py-2 rounded-lg cursor-pointer">
-                                    <input type="checkbox" class="form-checkbox rowCheckbox focus:outline-none focus:shadow-outline" :name="user.path"
-                                           @click="getRowDetail($event, user.userId)">
+                                    <input type="checkbox" class="form-checkbox rowCheckbox focus:outline-none focus:shadow-outline" :name="user.email"
+                                           @click="getRowDetail($event, user.email)">
                                 </label>
                             </td>
-{{--                            <td class="border-dashed border-t border-gray-200 userId">--}}
-{{--                                <span class="text-gray-700 px-6 py-3 flex items-center" x-text="user.userId"></span>--}}
-{{--                            </td>--}}
+                            {{--                            <td class="border-dashed border-t border-gray-200 userId">--}}
+                            {{--                                <span class="text-gray-700 px-6 py-3 flex items-center" x-text="user.userId"></span>--}}
+                            {{--                            </td>--}}
                             <td class="border-dashed border-t border-gray-200 name">
                                 <span class="text-gray-700 px-6 py-3 flex items-center" x-text="user.name"></span>
                             </td>
-                            <td class="border-dashed border-t border-gray-200 point">
+                            <td class="hover:bg-blue-200 cursor-pointer border-dashed border-t border-gray-200 point" @click="navigate(user.path)">
                                 <span class="text-gray-700 px-6 py-3 flex items-center"
                                       x-text="user.point"></span>
                             </td>
@@ -129,9 +135,15 @@
                             </td>
                         </tr>
                     </template>
-
                     </tbody>
                 </table>
+
+            </div>
+            <div class="btns w-full mt-3">
+                <div class="ml-auto" style="width: fit-content">
+                    <button @click="window.print()" class="btn bg-transparent text-gray-600 btn-primary mr-3">Print</button>
+                    <button @click="download()" class="btn bg-transparent text-gray-600 btn-primary">Download</button>
+                </div>
             </div>
         </div>
     </div>
@@ -139,6 +151,31 @@
 
 @push('scripts')
     <script>
+        (function() {
+
+            var beforePrint = function() {
+                $('.tbl').css({height: ''});
+            };
+
+            var afterPrint = function() {
+                $('.tbl').css({height: 405});
+            };
+
+            if (window.matchMedia) {
+                var mediaQueryList = window.matchMedia('print');
+                mediaQueryList.addListener(function(mql) {
+                    if (mql.matches) {
+                        beforePrint();
+                    } else {
+                        afterPrint();
+                    }
+                });
+            }
+
+            window.onbeforeprint = beforePrint;
+            window.onafterprint = afterPrint;
+
+        }());
         function datatables() {
             return {
                 quizId:'{{ $quiz->id }}',
@@ -183,22 +220,64 @@
                 selectedRows: [],
                 searchval: "",
                 open: false,
+
+                init()
+                {
+                    console.log("init");
+                    this.$watch('searchval', () => {
+                        this.search()
+                    });
+                },
                 search(){
                     let val = this.searchval.toLowerCase();
                     let arr = [];
-                    if(val.length === 0){
-                        for(let e of this.usersFull)
+                    let check = undefined;
+                    if(val.length === 0)
+                    {
+                        check = () => true;
+                    }
+                    else if(val.indexOf("point>") === 0)
+                    {
+                        let point = parseFloat(val.substr(6));
+                        check = (user) => user.point > point;
+                    }
+                    else if(val.indexOf("point<") === 0)
+                    {
+                        let point = parseFloat(val.substr(6));
+                        check = (user) => user.point < point;
+                    }
+                    else if(val.indexOf("email:") === 0)
+                    {
+                        let email = val.substr(6);
+                        check = (user) => user.email.toLowerCase().indexOf(email) >= 0;
+                    }
+                    else
+                    {
+                        check = (user) => user.name.toLowerCase().indexOf(val) >= 0;
+                    }
+                    for (let e of this.usersFull)
+                    {
+                        if (check(e))
                         {
                             arr.push(e);
                         }
-                    }else {
-                        for (let e of this.usersFull) {
-                            if (e.name.toLowerCase().indexOf(val) >= 0) {
-                                arr.push(e);
-                            }
-                        }
                     }
                     this.users = arr;
+                },
+                download(){
+                    let rows = [this.headings.map((h) => h['key'])];
+                    for(let user of this.users)
+                    {
+                        rows.push([user.name, user.point, user.email, user.createdAt]);
+                    }
+                    let csvContent = "data:text/csv;charset=utf-8," + rows.map(e => e.join(",")).join("\n");
+                    var encodedUri = encodeURI(csvContent);
+                    var link = document.createElement("a");
+                    link.style.display = 'none';
+                    link.setAttribute("href", encodedUri);
+                    link.setAttribute("download", "quizzer_users.csv");
+                    document.body.appendChild(link);
+                    link.click();
                 },
                 toggleColumn(key) {
                     // Note: All td must have the same class name as the headings key!
@@ -214,14 +293,14 @@
                     }
                 },
 
-                getRowDetail($event, id) {
+                getRowDetail($event, email) {
                     let rows = this.selectedRows;
 
-                    if (rows.includes(id)) {
-                        let index = rows.indexOf(id);
+                    if (rows.includes(email)) {
+                        let index = rows.indexOf(email);
                         rows.splice(index, 1);
                     } else {
-                        rows.push(id);
+                        rows.push(email);
                     }
                 },
 
@@ -249,9 +328,15 @@
             }
         }
 
-        function copy(){
-            navigator.clipboard.writeText("{{ $quiz->path }}");
-            $("#copied").text("Copied!").css({opacity:0}).animate({opacity:1}, 230).removeClass("text-gray-600").addClass("text-green-600");
+        function copy(div){
+            if(navigator.clipboard) {
+                navigator.clipboard.writeText("{{ $quiz->path }}");
+                $("#copied").text("Copied!").css({opacity: 0}).animate({opacity: 1}, 230).removeClass("text-gray-600").addClass("text-green-600");
+            }else{
+                window.getSelection().selectAllChildren(div);
+                window.getSelection().selectAllChildren(div);
+                $("#copied").text("Selected!").css({opacity: 0}).animate({opacity: 1}, 230).removeClass("text-gray-600").addClass("text-green-600");
+            }
         }
     </script>
 @endpush

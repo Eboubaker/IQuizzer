@@ -7,33 +7,32 @@
         </span>
     </a>
     <button
-            class="focus:outline-none text-white inline-flex p-3 hover:bg-gray-900 rounded lg:hidden ml-auto hover:text-white outline-none"
+            class="focus:outline-none text-white inline-flex p-3 hover:bg-gray-900 rounded md:hidden ml-auto hover:text-white outline-none"
             id="nav-toggle"
     >
-        <i class="material-icons">menu</i>
-    </button>
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>    </button>
     <div
             id="navigation"
-            class="hidden top-navbar w-full lg:inline-flex lg:flex-grow lg:w-auto"
+            class="hidden top-navbar w-full md:inline-flex md:flex-grow md:w-auto"
     >
         <div
-                class="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto"
+                class="md:inline-flex md:flex-row md:ml-auto md:w-auto w-full md:items-center items-start  flex flex-col md:h-auto"
         >
             <a
                     href="/"
-                    class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white"
+                    class="md:inline-flex md:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white"
             >
                 <span>Home</span>
             </a>
             <a
                     href="{{ route('explore') }}"
-                    class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white"
+                    class="md:inline-flex md:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white"
             >
                 <span>Explore</span>
             </a>
             <a
                     href="{{ route('quiz.create') }}"
-                    class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white"
+                    class="md:inline-flex md:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white"
             >
                 <span>Create Quiz</span>
             </a>
@@ -42,7 +41,7 @@
             @else
                 <a
                         href="{{ route('login') }}"
-                        class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white"
+                        class="md:inline-flex md:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white"
                 >
                     <span>Login</span>
                 </a>
