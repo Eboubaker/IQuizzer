@@ -21,7 +21,7 @@
 @endpush
 @section('content')
     <head>
-        <div class="bg w-full bg-cover bg-center">
+        <div class="bg w-full bg-cover bg-center" style="height: 100vh;">
             <div class="flex items-center justify-center h-full w-full bg-gray-900 bg-opacity-50">
                 <div class="text-center">
                     <h1 class="text-white text-2xl font-semibold uppercase md:text-3xl">Build Your new <span class="underline text-blue-400">QCM Quiz</span></h1>
