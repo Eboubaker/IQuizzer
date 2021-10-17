@@ -1,2 +1,2 @@
 
-http://www.iquizzer.online
+http://www.iquizzer.xyz
