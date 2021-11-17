@@ -329,10 +329,10 @@
         }
 
         function copy(div){
-            if(navigator.clipboard) {
+            if(navigator.clipboard) {// clipboard API is only supported in https protocol
                 navigator.clipboard.writeText("{{ $quiz->path }}");
                 $("#copied").text("Copied!").css({opacity: 0}).animate({opacity: 1}, 230).removeClass("text-gray-600").addClass("text-green-600");
-            }else{
+            }else{// we are using http :(
                 window.getSelection().selectAllChildren(div);
                 window.getSelection().selectAllChildren(div);
                 $("#copied").text("Selected!").css({opacity: 0}).animate({opacity: 1}, 230).removeClass("text-gray-600").addClass("text-green-600");
