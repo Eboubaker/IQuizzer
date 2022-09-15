@@ -1,2 +1,2 @@
 
-http://www.iquizzer.xyz
+https://quizzer.eboubaker.xyz
